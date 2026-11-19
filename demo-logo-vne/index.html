@@ -141,7 +141,7 @@
     if (spec) selectedOption = id.slice(-2);
     for (const button of sections) button.setAttribute('aria-pressed', button.dataset.section === section);
     optionsMenu.hidden = !hasDesigns || section === 'sources';
-    const offersEdition = hasDesigns && !!spec && id.endsWith('-01');
+    const offersEdition = hasDesigns && !!spec;
     editionMenu.hidden = !offersEdition;
     for (const button of editionButtons) button.setAttribute('aria-pressed', button.dataset.edition === edition);
     for (const button of optionButtons) {
