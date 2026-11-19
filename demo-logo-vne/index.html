@@ -3,13 +3,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Demo logo VnExpress</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&amp;display=swap">
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; background: #f4f3f1; color: #302d29; font: 15px/1.5 system-ui, sans-serif; }
   header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 12px 20px; background: #fff; border-bottom: 1px solid #ddd8d4; }
-  h1 { margin: 0; font-size: 16px; font-weight: 650; }
+  h1 { flex-basis: 100%; margin: 0; font: 700 clamp(22px, 4vw, 32px)/1.25 "Merriweather", Georgia, serif; }
   .filter-row { flex-basis: 100%; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; }
-  .season { margin: 0; font-size: 15px; font-weight: 650; color: #861b43; }
+  .season { font: inherit; font-weight: 650; color: #861b43; background: #fff; border: 1px solid #d6ccc9; border-radius: 6px; padding: 5px 9px; cursor: pointer; }
+  .empty-season { max-width: 640px; margin: 28px auto; padding: 20px; text-align: center; }
   button { font: inherit; color: inherit; background: #fff; border: 1px solid #d6ccc9; border-radius: 6px; padding: 5px 14px; cursor: pointer; }
   button[aria-pressed="true"] { background: #9f224e; border-color: #9f224e; color: #fff; }
   [role="group"] { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -40,7 +42,10 @@
 <header>
   <h1>Demo logo VnExpress</h1>
   <div class="filter-row">
-    <h2 class="season">Noel 2026</h2>
+    <select class="season" aria-label="Dịp thiết kế">
+      <option value="noel-2026">Noel 2026</option>
+      <option value="tet-am-2027">Tết âm 2027</option>
+    </select>
     <div role="group" aria-label="Phiên bản xem thử">
       <button type="button" data-section="pc" aria-pressed="false">PC</button>
       <button type="button" data-section="mobile" aria-pressed="false">Mobile</button>
@@ -49,11 +54,12 @@
   </div>
   <div class="options-menu" role="group" aria-label="Phương án thiết kế" hidden>
     <button type="button" data-option="01" aria-pressed="false">Options 1</button>
-    <button type="button" data-option="02" aria-pressed="false">Options 2</button>
+<button type="button" data-option="02" aria-pressed="false">Options 2</button>
   </div>
   <span id="status" role="status"></span>
 </header>
 <main>
+  <p class="empty-season" hidden>Chưa có phương án logo cho Tết âm 2027.</p>
   <div class="preview" id="pc" hidden>
     <img class="homepage" src="./asset/vnexpress-homepage-1920x1080.png" width="1920" height="1080" alt="Khung trang chủ VnExpress trên PC">
     <img class="motion-background" style="left:20%;top:0%;width:11.5625%;height:5.648148148148148%" alt="">
@@ -100,6 +106,8 @@
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const status = document.getElementById('status');
   const sources = document.getElementById('sources');
+  const season = document.querySelector('.season');
+  const emptySeason = document.querySelector('.empty-season');
   let active;
   let selectedOption = '01';
 
@@ -107,14 +115,23 @@
     active = id;
     const spec = variants[id];
     const section = spec?.layout ?? 'sources';
+    const hasDesigns = season.value === 'noel-2026';
     if (spec) selectedOption = id.slice(-2);
     for (const button of sections) button.setAttribute('aria-pressed', button.dataset.section === section);
-    optionsMenu.hidden = section === 'sources';
-    for (const button of optionButtons) button.setAttribute('aria-pressed', button.dataset.option === selectedOption);
+    optionsMenu.hidden = !hasDesigns || section === 'sources';
+    for (const button of optionButtons) {
+      button.hidden = !Object.hasOwn(variants, section + '-' + button.dataset.option);
+      button.setAttribute('aria-pressed', button.dataset.option === selectedOption);
+    }
     status.textContent = '';
-    sources.hidden = id !== 'sources';
-    const frame = spec ? document.getElementById(spec.layout) : null;
+    sources.hidden = !hasDesigns || id !== 'sources';
+    emptySeason.hidden = hasDesigns;
+    const frame = hasDesigns && spec ? document.getElementById(spec.layout) : null;
     for (const preview of document.querySelectorAll('.preview')) preview.hidden = preview !== frame;
+    if (!hasDesigns) {
+      document.documentElement.dataset.ready = 'tet-am-2027';
+      return;
+    }
     let images;
     if (frame) {
       frame.querySelector('.motion-background').src = reducedMotion.matches ? spec.png : spec.svg;
@@ -149,6 +166,7 @@
     if (layout) selectPreview(layout + '-' + button.dataset.option);
   });
   reducedMotion.addEventListener('change', () => selectPreview(active));
+  season.addEventListener('change', () => selectPreview(active));
   const requested = new URLSearchParams(location.search).get('view');
   selectPreview(Object.hasOwn(variants, requested) || requested === 'sources' ? requested : requested === 'mobile' ? 'mobile-01' : 'pc-01');
 </script>
