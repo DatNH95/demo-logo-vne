@@ -85,7 +85,7 @@
     <g id="evergreen">
       <ellipse cy="1.4" rx="9.5" ry="2.15" fill="#999571" opacity=".22"/>
       <path d="M-1.3-4H1.3V1H-1.3Z" fill="#95704e"/>
-      
+
       <path d="M0-32 .8-30.2 2.7-30 1.3-28.8 1.6-26.9 0-27.9-1.6-26.9-1.3-28.8-2.7-30-.8-30.2Z" fill="#cea257"/>
       <g fill="#f2cb7a"><circle cx="1.7" cy="-18" r=".8"/><circle cx="-3.1" cy="-11" r=".75"/><circle cx="4.3" cy="-5" r=".8"/></g>
       <g fill="#b63c45"><circle cx="-.8" cy="-21" r=".74"/><circle cx="2.3" cy="-13" r=".86"/><circle cx="-5" cy="-6" r=".83"/></g>
@@ -99,11 +99,11 @@
   </defs>
   <rect width="222" height="61" fill="#fff"/>
   <g mask="url(#edge-mask)">
-    
-    
+
+
     <path d="" fill="none" stroke="#bea47a" stroke-width=".65" opacity=".65"/>
     <g transform="translate(-8 -17)"><use href="#stock-0" opacity="0.86"/></g><g transform="translate(133 -18)"><use href="#stock-1" opacity="0.92"/></g><g transform="translate(8 -12)"><g class="sway" style="--cycle:4.7s;--phase:-1.2s;--angle:8deg;--pivot-x:16.0px;--pivot:2px"><use href="#stock-2" opacity="1"/></g></g><g transform="translate(181 -22)"><g class="sway" style="--cycle:5.4s;--phase:-2.3s;--angle:7deg;--pivot-x:17.0px;--pivot:2px"><use href="#stock-3" opacity="0.85"/></g></g><g transform="translate(205 -3)"><g class="sway" style="--cycle:3.8s;--phase:-0.4s;--angle:15deg;--pivot-x:3.5px;--pivot:0px"><use href="#stock-4" opacity="1"/></g></g><g transform="translate(201 24)"><g class="sway" style="--cycle:5.2s;--phase:-1.3s;--angle:4deg;--pivot-x:9.0px;--pivot:26px"><use href="#stock-5" opacity="1"/></g></g><g transform="translate(202 44)"><use href="#stock-6" opacity="1"/></g>
     <g fill="#d6a246"><circle cx="12" cy="6" r="0.65" opacity=".62"/><circle class="twinkle" cx="12" cy="6" r="1.2" style="--phase:-0.00s;--cycle:3.60s"/></g><g fill="#b83f50"><circle cx="18" cy="9" r="1.15" opacity=".62"/><circle class="twinkle" cx="18" cy="9" r="1.65" style="--phase:-0.73s;--cycle:4.17s"/></g><g fill="#e3b457"><circle cx="23" cy="16" r="0.85" opacity=".62"/><circle class="twinkle" cx="23" cy="16" r="1.4" style="--phase:-1.46s;--cycle:4.74s"/></g><g fill="#d6a246"><circle cx="30" cy="9" r="0.65" opacity=".62"/><circle class="twinkle" cx="30" cy="9" r="1.2" style="--phase:-2.19s;--cycle:5.31s"/></g><g fill="#b83f50"><circle cx="41" cy="6" r="1.15" opacity=".62"/><circle class="twinkle" cx="41" cy="6" r="1.65" style="--phase:-2.92s;--cycle:3.60s"/></g><g fill="#e3b457"><circle cx="182" cy="6" r="0.85" opacity=".62"/><circle class="twinkle" cx="182" cy="6" r="1.4" style="--phase:-3.65s;--cycle:4.17s"/></g><g fill="#d6a246"><circle cx="190" cy="8" r="0.65" opacity=".62"/><circle class="twinkle" cx="190" cy="8" r="1.2" style="--phase:-4.38s;--cycle:4.74s"/></g><g fill="#b83f50"><circle cx="199" cy="9" r="1.15" opacity=".62"/><circle class="twinkle" cx="199" cy="9" r="1.65" style="--phase:-5.11s;--cycle:5.31s"/></g><g fill="#e3b457"><circle cx="204" cy="14" r="0.85" opacity=".62"/><circle class="twinkle" cx="204" cy="14" r="1.4" style="--phase:-5.84s;--cycle:3.60s"/></g><g fill="#d6a246"><circle cx="213" cy="8" r="0.65" opacity=".62"/><circle class="twinkle" cx="213" cy="8" r="1.2" style="--phase:-6.57s;--cycle:4.17s"/></g>
-    
+
   </g>
 </svg>
