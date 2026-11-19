@@ -18,6 +18,13 @@
   .homepage { width: 100%; height: auto; display: block; }
   .motion-background, .brand-logo { display: block; position: absolute; }
   #mobile .motion-background { mask-image: linear-gradient(90deg, transparent 10%, #000 14%, #000 88%, transparent 91%); }
+  #sources { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 16px; max-width: 980px; margin: 0 auto; }
+  #sources[hidden] { display: none; }
+  .source-card { min-width: 0; padding: 18px; background: #fff; border: 1px solid #dedbd7; border-radius: 8px; }
+  .source-card h2 { margin: 0 0 12px; font-size: 16px; }
+  .source-card h2 span { font-size: 13px; color: #655f5b; font-weight: normal; }
+  .source-image { display: block; width: auto; max-width: 100%; height: auto; margin-bottom: 14px; }
+  .source-download { color: #8b1d45; font-weight: 600; }
   @media (max-width: 520px) { main { padding: 10px; } }
 </style>
 <header>
@@ -27,6 +34,7 @@
 <button type="button" data-preview="pc-02" aria-pressed="false">PC 02</button>
 <button type="button" data-preview="mobile-01" aria-pressed="false">Mobile 01</button>
 <button type="button" data-preview="mobile-02" aria-pressed="false">Mobile 02</button>
+    <button type="button" data-preview="sources" aria-pressed="false">Soucre</button>
   </div>
   <span id="status" role="status"></span>
 </header>
@@ -34,32 +42,71 @@
   <div class="preview" id="pc" hidden>
     <img class="homepage" src="./asset/vnexpress-homepage-1920x1080.png" width="1920" height="1080" alt="Khung trang chủ VnExpress trên PC">
     <img class="motion-background" style="left:20%;top:0%;width:11.5625%;height:5.648148148148148%" alt="">
-    <img class="brand-logo" src="./asset/vnexpress-logo.svg" style="left:21.354166666666664%;top:0.6481481481481481%;width:9.010416666666666%;height:4.234780757769263%" alt="VnExpress — Báo tiếng Việt nhiều người xem nhất">
+    <img class="brand-logo" src="./asset/vnexpress-logo.svg" style="left:21.354166666666664%;top:0.6481481481481481%;width:9.010416666666666%;height:4.2592592592592595%" alt="VnExpress — Báo tiếng Việt nhiều người xem nhất">
   </div>
 <div class="preview" id="mobile" hidden>
     <img class="homepage" src="./asset/vnexpress-homepage-mobile.png" width="414" height="1080" alt="Khung trang chủ VnExpress trên Mobile">
     <img class="motion-background" style="left:0%;top:0%;width:100%;height:5.37037037037037%" alt="">
-    <img class="brand-logo" src="./asset/vnexpress-logo.svg" style="left:30.07246376811594%;top:0.5555555555555556%;width:39.85507246376812%;height:4.038952745849297%" alt="VnExpress — Báo tiếng Việt nhiều người xem nhất">
+    <img class="brand-logo" src="./asset/vnexpress-logo.svg" style="left:30.07246376811594%;top:0.5555555555555556%;width:39.85507246376812%;height:4.037905092592593%" alt="VnExpress — Báo tiếng Việt nhiều người xem nhất">
   </div>
+  <section id="sources" aria-label="Nền SVG của các phương án" hidden>
+    <article class="source-card" data-source="pc-01">
+      <h2>PC 01 <span>· 222 × 61 px</span></h2>
+      <img class="source-image" width="222" height="61" alt="Nền Giáng sinh PC 01">
+      <a class="source-download">Tải SVG</a>
+    </article>
+<article class="source-card" data-source="pc-02">
+      <h2>PC 02 <span>· 222 × 61 px</span></h2>
+      <img class="source-image" width="222" height="61" alt="Nền Giáng sinh PC 02">
+      <a class="source-download">Tải SVG</a>
+    </article>
+<article class="source-card" data-source="mobile-01">
+      <h2>Mobile 01 <span>· 414 × 58 px</span></h2>
+      <img class="source-image" width="414" height="58" alt="Nền Giáng sinh Mobile 01">
+      <a class="source-download">Tải SVG</a>
+    </article>
+<article class="source-card" data-source="mobile-02">
+      <h2>Mobile 02 <span>· 414 × 58 px</span></h2>
+      <img class="source-image" width="414" height="58" alt="Nền Giáng sinh Mobile 02">
+      <a class="source-download">Tải SVG</a>
+    </article>
+  </section>
 </main>
 <script>
-  const variants = {"pc-01":{"layout":"pc","svg":"./asset/vnexpress-noel-pc-01-motion.svg","png":"./asset/vnexpress-noel-pc-01%403x.png"},"pc-02":{"layout":"pc","svg":"./asset/vnexpress-noel-pc-02-motion.svg","png":"./asset/vnexpress-noel-pc-02%403x.png"},"mobile-01":{"layout":"mobile","svg":"./asset/vnexpress-noel-mobile-01-motion.svg","png":"./asset/vnexpress-noel-mobile-01%403x.png"},"mobile-02":{"layout":"mobile","svg":"./asset/vnexpress-noel-mobile-02-motion.svg","png":"./asset/vnexpress-noel-mobile-02%403x.png"}};
+  const variants = {"pc-01":{"layout":"pc","svg":"./asset/vnexpress-noel-pc-01-motion.svg","png":"./asset/vnexpress-noel-pc-01%403x.png","filename":"vnexpress-noel-pc-01-motion.svg"},"pc-02":{"layout":"pc","svg":"./asset/vnexpress-noel-pc-02-motion.svg","png":"./asset/vnexpress-noel-pc-02%403x.png","filename":"vnexpress-noel-pc-02-motion.svg"},"mobile-01":{"layout":"mobile","svg":"./asset/vnexpress-noel-mobile-01-motion.svg","png":"./asset/vnexpress-noel-mobile-01%403x.png","filename":"vnexpress-noel-mobile-01-motion.svg"},"mobile-02":{"layout":"mobile","svg":"./asset/vnexpress-noel-mobile-02-motion.svg","png":"./asset/vnexpress-noel-mobile-02%403x.png","filename":"vnexpress-noel-mobile-02-motion.svg"}};
   const buttons = document.querySelectorAll('[data-preview]');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const status = document.getElementById('status');
+  const sources = document.getElementById('sources');
   let active;
 
   async function selectPreview(id) {
     active = id;
-    const spec = variants[id];
-    const frame = document.getElementById(spec.layout);
     for (const button of buttons) button.setAttribute('aria-pressed', button.dataset.preview === id);
-    for (const preview of document.querySelectorAll('.preview')) preview.hidden = preview !== frame;
-    const background = frame.querySelector('.motion-background');
-    background.src = reducedMotion.matches ? spec.png : spec.svg;
     status.textContent = '';
+    sources.hidden = id !== 'sources';
+    const spec = variants[id];
+    const frame = spec ? document.getElementById(spec.layout) : null;
+    for (const preview of document.querySelectorAll('.preview')) preview.hidden = preview !== frame;
+    let images;
+    if (frame) {
+      frame.querySelector('.motion-background').src = reducedMotion.matches ? spec.png : spec.svg;
+      images = Array.from(frame.querySelectorAll('img'));
+    } else {
+      images = Array.from(sources.querySelectorAll('[data-source]'), card => {
+        const variant = variants[card.dataset.source];
+        const image = card.querySelector('img');
+        const link = card.querySelector('a');
+        if (!image.hasAttribute('src')) {
+          image.src = variant.svg;
+          link.href = variant.svg;
+          link.download = variant.filename;
+        }
+        return image;
+      });
+    }
     try {
-      await Promise.all(Array.from(frame.querySelectorAll('img'), image => image.decode()));
+      await Promise.all(images.map(image => image.decode()));
       if (active === id) document.documentElement.dataset.ready = id;
     } catch {
       if (active === id) status.textContent = 'Không tải được ảnh xem thử.';
@@ -69,5 +116,5 @@
   for (const button of buttons) button.addEventListener('click', () => selectPreview(button.dataset.preview));
   reducedMotion.addEventListener('change', () => selectPreview(active));
   const requested = new URLSearchParams(location.search).get('view');
-  selectPreview(Object.hasOwn(variants, requested) ? requested : requested === 'mobile' ? 'mobile-01' : 'pc-01');
+  selectPreview(Object.hasOwn(variants, requested) || requested === 'sources' ? requested : requested === 'mobile' ? 'mobile-01' : 'pc-01');
 </script>
