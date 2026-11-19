@@ -2,12 +2,14 @@
 <html lang="vi">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Xem thử nền logo Giáng sinh VnExpress</title>
+<title>Demo logo VnExpress</title>
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; background: #f4f3f1; color: #302d29; font: 15px/1.5 system-ui, sans-serif; }
   header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 12px 20px; background: #fff; border-bottom: 1px solid #ddd8d4; }
   h1 { margin: 0; font-size: 16px; font-weight: 650; }
+  .filter-row { flex-basis: 100%; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; }
+  .season { margin: 0; font-size: 15px; font-weight: 650; color: #861b43; }
   button { font: inherit; color: inherit; background: #fff; border: 1px solid #d6ccc9; border-radius: 6px; padding: 5px 14px; cursor: pointer; }
   button[aria-pressed="true"] { background: #9f224e; border-color: #9f224e; color: #fff; }
   [role="group"] { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -36,11 +38,14 @@
   }
 </style>
 <header>
-  <h1>Nền logo Giáng sinh VnExpress</h1>
-  <div role="group" aria-label="Phiên bản xem thử">
-    <button type="button" data-section="pc" aria-pressed="false">PC</button>
-    <button type="button" data-section="mobile" aria-pressed="false">Mobile</button>
-    <button type="button" data-section="sources" aria-pressed="false">Socure</button>
+  <h1>Demo logo VnExpress</h1>
+  <div class="filter-row">
+    <h2 class="season">Noel 2026</h2>
+    <div role="group" aria-label="Phiên bản xem thử">
+      <button type="button" data-section="pc" aria-pressed="false">PC</button>
+      <button type="button" data-section="mobile" aria-pressed="false">Mobile</button>
+      <button type="button" data-section="sources" aria-pressed="false">Tải xuống SVG</button>
+    </div>
   </div>
   <div class="options-menu" role="group" aria-label="Phương án thiết kế" hidden>
     <button type="button" data-option="01" aria-pressed="false">Options 1</button>
