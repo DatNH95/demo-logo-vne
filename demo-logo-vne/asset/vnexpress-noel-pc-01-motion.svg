@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="222" height="61" viewBox="0 0 222 61">
+<svg xmlns="http://www.w3.org/2000/svg" width="450" height="61" viewBox="-114 0 450 61">
   <style>
     .sway { transform-origin: var(--pivot-x, 0px) var(--pivot); animation: sway var(--cycle) ease-in-out var(--phase) infinite; }
     .snow-drift { animation: drift var(--cycle) ease-in-out var(--phase) infinite; }
@@ -10,6 +10,7 @@
     @media (prefers-reduced-motion: reduce) { .sway, .snow-drift, .twinkle, .gift-glint { animation: none; } }
   </style>
   <defs>
+    <radialGradient id="wide-halo"><stop stop-color="#f7e5c4" stop-opacity=".72"/><stop offset=".56" stop-color="#faedd8" stop-opacity=".55"/><stop offset="1" stop-color="#fff8ec" stop-opacity="0"/></radialGradient>
 
     <radialGradient id="warm-center" cx="50%" cy="6%" r="55%">
       <stop stop-color="#f5dbac" stop-opacity=".76"/>
@@ -102,7 +103,7 @@
       <path class="gift-glint" d="M-5-4.5l.55 1.95 1.95.55-1.95.55L-5 .5l-.55-1.95-1.95-.55 1.95-.55Z" fill="#eed08d"/>
     </g>
   </defs>
-  <rect width="222" height="61" fill="#fff"/>
+  <ellipse cx="111" cy="4" rx="225" ry="49" fill="url(#wide-halo)"/><rect width="222" height="61" fill="#fff" mask="url(#edge-mask)"/>
   <g mask="url(#edge-mask)">
     <rect width="222" height="61" fill="url(#warm-center)"/><g class="snow-drift" opacity=".33" style="--phase:-0.00s;--cycle:7s"><use href="#flake-1" x="47.5" y="29.5" width="7" height="7"/></g><g class="snow-drift" opacity=".33" style="--phase:-0.90s;--cycle:7s"><use href="#flake-1" x="96.0" y="1.0" width="6" height="6"/></g><g class="snow-drift" opacity=".33" style="--phase:-1.80s;--cycle:7s"><use href="#flake-1" x="121.0" y="30.0" width="8" height="8"/></g><g class="snow-drift" opacity=".33" style="--phase:-2.70s;--cycle:7s"><use href="#flake-1" x="159.5" y="31.5" width="7" height="7"/></g>
     <ellipse cx="28" cy="2" rx="58" ry="35" fill="url(#glow)"/><ellipse cx="195" cy="4" rx="59" ry="40" fill="url(#glow)"/>

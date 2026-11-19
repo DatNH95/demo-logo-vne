@@ -77,8 +77,8 @@
   </div>
   <section id="sources" aria-label="Nền SVG của các phương án" hidden>
     <article class="source-card" data-source="pc-01">
-      <h2>PC 01 <span>· 222 × 61 px</span></h2>
-      <img class="source-image" width="222" height="61" alt="Nền Giáng sinh PC 01">
+      <h2>PC 01 <span>· 450 × 61 px</span></h2>
+      <img class="source-image" width="450" height="61" alt="Nền Giáng sinh PC 01">
       <a class="source-download">Tải SVG</a>
     </article>
 <article class="source-card" data-source="pc-02">
@@ -99,7 +99,7 @@
   </section>
 </main>
 <script>
-  const variants = {"pc-01":{"layout":"pc","svg":"./asset/vnexpress-noel-pc-01-motion.svg","png":"./asset/vnexpress-noel-pc-01%403x.png","filename":"vnexpress-noel-pc-01-motion.svg"},"pc-02":{"layout":"pc","svg":"./asset/vnexpress-noel-pc-02-motion.svg","png":"./asset/vnexpress-noel-pc-02%403x.png","filename":"vnexpress-noel-pc-02-motion.svg"},"mobile-01":{"layout":"mobile","svg":"./asset/vnexpress-noel-mobile-01-motion.svg","png":"./asset/vnexpress-noel-mobile-01%403x.png","filename":"vnexpress-noel-mobile-01-motion.svg"},"mobile-02":{"layout":"mobile","svg":"./asset/vnexpress-noel-mobile-02-motion.svg","png":"./asset/vnexpress-noel-mobile-02%403x.png","filename":"vnexpress-noel-mobile-02-motion.svg"}};
+  const variants = {"pc-01":{"layout":"pc","box":"left:14.0625%;top:0%;width:23.4375%;height:5.648148148148148%","svg":"./asset/vnexpress-noel-pc-01-motion.svg","png":"./asset/vnexpress-noel-pc-01%403x.png","filename":"vnexpress-noel-pc-01-motion.svg"},"pc-02":{"layout":"pc","box":"left:20%;top:0%;width:11.5625%;height:5.648148148148148%","svg":"./asset/vnexpress-noel-pc-02-motion.svg","png":"./asset/vnexpress-noel-pc-02%403x.png","filename":"vnexpress-noel-pc-02-motion.svg"},"mobile-01":{"layout":"mobile","box":"left:0%;top:0%;width:100%;height:5.37037037037037%","svg":"./asset/vnexpress-noel-mobile-01-motion.svg","png":"./asset/vnexpress-noel-mobile-01%403x.png","filename":"vnexpress-noel-mobile-01-motion.svg"},"mobile-02":{"layout":"mobile","box":"left:0%;top:0%;width:100%;height:5.37037037037037%","svg":"./asset/vnexpress-noel-mobile-02-motion.svg","png":"./asset/vnexpress-noel-mobile-02%403x.png","filename":"vnexpress-noel-mobile-02-motion.svg"}};
   const sections = document.querySelectorAll('[data-section]');
   const optionsMenu = document.querySelector('.options-menu');
   const optionButtons = optionsMenu.querySelectorAll('[data-option]');
@@ -134,7 +134,9 @@
     }
     let images;
     if (frame) {
-      frame.querySelector('.motion-background').src = reducedMotion.matches ? spec.png : spec.svg;
+      const background = frame.querySelector('.motion-background');
+      background.style.cssText = spec.box;
+      background.src = reducedMotion.matches ? spec.png : spec.svg;
       images = Array.from(frame.querySelectorAll('img'));
     } else {
       images = Array.from(sources.querySelectorAll('[data-source]'), card => {
