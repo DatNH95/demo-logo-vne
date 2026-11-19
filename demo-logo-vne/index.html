@@ -11,6 +11,10 @@
   button { font: inherit; color: inherit; background: #fff; border: 1px solid #d6ccc9; border-radius: 6px; padding: 5px 14px; cursor: pointer; }
   button[aria-pressed="true"] { background: #9f224e; border-color: #9f224e; color: #fff; }
   [role="group"] { display: flex; flex-wrap: wrap; gap: 6px; }
+  .options-menu { flex-basis: 100%; border-top: 1px solid #eee9e7; padding-top: 10px; }
+  .options-menu[hidden] { display: none; }
+  .options-menu button { padding: 4px 12px; font-size: 14px; }
+  .options-menu button[aria-pressed="true"] { background: #f9eaf0; border-color: #cf9aae; color: #861b43; }
   main { padding: 18px; }
   .preview { position: relative; margin: 0 auto; background: white; border: 1px solid #dedbd7; overflow: hidden; }
   #pc { max-width: 1922px; }
@@ -34,11 +38,13 @@
 <header>
   <h1>Nền logo Giáng sinh VnExpress</h1>
   <div role="group" aria-label="Phiên bản xem thử">
-    <button type="button" data-preview="pc-01" aria-pressed="false">PC 01</button>
-<button type="button" data-preview="pc-02" aria-pressed="false">PC 02</button>
-<button type="button" data-preview="mobile-01" aria-pressed="false">Mobile 01</button>
-<button type="button" data-preview="mobile-02" aria-pressed="false">Mobile 02</button>
-    <button type="button" data-preview="sources" aria-pressed="false">Soucre</button>
+    <button type="button" data-section="pc" aria-pressed="false">PC</button>
+    <button type="button" data-section="mobile" aria-pressed="false">Mobile</button>
+    <button type="button" data-section="sources" aria-pressed="false">Socure</button>
+  </div>
+  <div class="options-menu" role="group" aria-label="Phương án thiết kế" hidden>
+    <button type="button" data-option="01" aria-pressed="false">Options 1</button>
+    <button type="button" data-option="02" aria-pressed="false">Options 2</button>
   </div>
   <span id="status" role="status"></span>
 </header>
@@ -83,18 +89,25 @@
 </main>
 <script>
   const variants = {"pc-01":{"layout":"pc","svg":"./asset/vnexpress-noel-pc-01-motion.svg","png":"./asset/vnexpress-noel-pc-01%403x.png","filename":"vnexpress-noel-pc-01-motion.svg"},"pc-02":{"layout":"pc","svg":"./asset/vnexpress-noel-pc-02-motion.svg","png":"./asset/vnexpress-noel-pc-02%403x.png","filename":"vnexpress-noel-pc-02-motion.svg"},"mobile-01":{"layout":"mobile","svg":"./asset/vnexpress-noel-mobile-01-motion.svg","png":"./asset/vnexpress-noel-mobile-01%403x.png","filename":"vnexpress-noel-mobile-01-motion.svg"},"mobile-02":{"layout":"mobile","svg":"./asset/vnexpress-noel-mobile-02-motion.svg","png":"./asset/vnexpress-noel-mobile-02%403x.png","filename":"vnexpress-noel-mobile-02-motion.svg"}};
-  const buttons = document.querySelectorAll('[data-preview]');
+  const sections = document.querySelectorAll('[data-section]');
+  const optionsMenu = document.querySelector('.options-menu');
+  const optionButtons = optionsMenu.querySelectorAll('[data-option]');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const status = document.getElementById('status');
   const sources = document.getElementById('sources');
   let active;
+  let selectedOption = '01';
 
   async function selectPreview(id) {
     active = id;
-    for (const button of buttons) button.setAttribute('aria-pressed', button.dataset.preview === id);
+    const spec = variants[id];
+    const section = spec?.layout ?? 'sources';
+    if (spec) selectedOption = id.slice(-2);
+    for (const button of sections) button.setAttribute('aria-pressed', button.dataset.section === section);
+    optionsMenu.hidden = section === 'sources';
+    for (const button of optionButtons) button.setAttribute('aria-pressed', button.dataset.option === selectedOption);
     status.textContent = '';
     sources.hidden = id !== 'sources';
-    const spec = variants[id];
     const frame = spec ? document.getElementById(spec.layout) : null;
     for (const preview of document.querySelectorAll('.preview')) preview.hidden = preview !== frame;
     let images;
@@ -122,7 +135,14 @@
     }
   }
 
-  for (const button of buttons) button.addEventListener('click', () => selectPreview(button.dataset.preview));
+  for (const button of sections) button.addEventListener('click', () => {
+    const section = button.dataset.section;
+    selectPreview(section === 'sources' ? section : section + '-' + selectedOption);
+  });
+  for (const button of optionButtons) button.addEventListener('click', () => {
+    const layout = variants[active]?.layout;
+    if (layout) selectPreview(layout + '-' + button.dataset.option);
+  });
   reducedMotion.addEventListener('change', () => selectPreview(active));
   const requested = new URLSearchParams(location.search).get('view');
   selectPreview(Object.hasOwn(variants, requested) || requested === 'sources' ? requested : requested === 'mobile' ? 'mobile-01' : 'pc-01');
