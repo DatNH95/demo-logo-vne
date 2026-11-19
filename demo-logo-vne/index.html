@@ -59,8 +59,8 @@
     <button type="button" data-option="01" aria-pressed="false">Options 1</button>
 <button type="button" data-option="02" aria-pressed="false">Options 2</button>
     <div class="edition-menu" role="group" aria-label="Ấn bản" hidden>
-      <button type="button" data-edition="ov" aria-pressed="true">OV</button>
-      <button type="button" data-edition="do" aria-pressed="false">DO</button>
+      <button type="button" data-edition="ov" aria-pressed="false">OV</button>
+      <button type="button" data-edition="do" aria-pressed="true">DO</button>
     </div>
   </div>
   <span id="status" role="status"></span>
@@ -129,7 +129,7 @@
   const emptySeason = document.querySelector('.empty-season');
   let active;
   let selectedOption = '01';
-  let edition = new URLSearchParams(location.search).get('edition') === 'do' ? 'do' : 'ov';
+  let edition = new URLSearchParams(location.search).get('edition') === 'ov' ? 'ov' : 'do';
   let renderSequence = 0;
 
   async function selectPreview(id) {
@@ -151,8 +151,8 @@
     status.textContent = '';
     sources.hidden = !hasDesigns || id !== 'sources';
     emptySeason.hidden = hasDesigns;
-    const showDo = offersEdition && edition === 'do';
-    const frame = hasDesigns && spec ? document.getElementById(spec.layout + (showDo ? '-do' : '')) : null;
+    const showInternational = offersEdition && edition === 'ov';
+    const frame = hasDesigns && spec ? document.getElementById(spec.layout + (showInternational ? '-do' : '')) : null;
     for (const preview of document.querySelectorAll('.preview')) preview.hidden = preview !== frame;
     if (!hasDesigns) {
       document.documentElement.dataset.ready = 'tet-am-2027';
@@ -161,7 +161,7 @@
     let images;
     if (frame) {
       const background = frame.querySelector('.motion-background');
-      if (!showDo) background.style.cssText = spec.box;
+      if (!showInternational) background.style.cssText = spec.box;
       background.src = reducedMotion.matches ? spec.png : spec.svg;
       images = Array.from(frame.querySelectorAll('img'));
     } else {
@@ -179,7 +179,7 @@
     }
     try {
       await Promise.all(images.map(image => image.decode()));
-      if (sequence === renderSequence) document.documentElement.dataset.ready = showDo ? id + '-do' : id;
+      if (sequence === renderSequence) document.documentElement.dataset.ready = showInternational ? id + '-ov' : id;
     } catch {
       if (sequence === renderSequence) status.textContent = 'Không tải được ảnh xem thử.';
     }
