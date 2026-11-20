@@ -10,7 +10,12 @@
     @media (prefers-reduced-motion: reduce) { .sway, .snow-drift, .twinkle, .gift-glint { animation: none; } }
   </style>
   <defs>
-    <radialGradient id="wide-halo"><stop stop-color="#f7e5c4" stop-opacity=".72"/><stop offset=".56" stop-color="#faedd8" stop-opacity=".55"/><stop offset="1" stop-color="#fff8ec" stop-opacity="0"/></radialGradient>
+    <radialGradient id="wide-halo">
+      <stop stop-color="#efd29c" stop-opacity=".3"/>
+      <stop offset=".48" stop-color="#f4dfb8" stop-opacity=".24"/>
+      <stop offset=".8" stop-color="#faecd4" stop-opacity=".10"/>
+      <stop offset="1" stop-color="#fff8ec" stop-opacity="0"/>
+    </radialGradient>
 
     <radialGradient id="warm-center" cx="50%" cy="6%" r="55%">
       <stop stop-color="#f5dbac" stop-opacity=".76"/>
@@ -103,10 +108,10 @@
       <path class="gift-glint" d="M-5-4.5l.55 1.95 1.95.55-1.95.55L-5 .5l-.55-1.95-1.95-.55 1.95-.55Z" fill="#eed08d"/>
     </g>
   </defs>
-  <ellipse cx="111" cy="4" rx="225" ry="49" fill="url(#wide-halo)"/><rect width="222" height="61" fill="#fff" mask="url(#edge-mask)"/>
+  <rect width="222" height="61" fill="#fff" mask="url(#edge-mask)"/><ellipse cx="111" cy="-4" rx="225" ry="62" fill="url(#wide-halo)"/><ellipse cx="12" cy="-3" rx="120" ry="49" fill="url(#wide-halo)"/><ellipse cx="210" cy="-3" rx="122" ry="49" fill="url(#wide-halo)"/>
   <g mask="url(#edge-mask)">
     <rect width="222" height="61" fill="url(#warm-center)"/><g class="snow-drift" opacity=".33" style="--phase:-0.00s;--cycle:7s"><use href="#flake-1" x="47.5" y="29.5" width="7" height="7"/></g><g class="snow-drift" opacity=".33" style="--phase:-0.90s;--cycle:7s"><use href="#flake-1" x="96.0" y="1.0" width="6" height="6"/></g><g class="snow-drift" opacity=".33" style="--phase:-1.80s;--cycle:7s"><use href="#flake-1" x="121.0" y="30.0" width="8" height="8"/></g><g class="snow-drift" opacity=".33" style="--phase:-2.70s;--cycle:7s"><use href="#flake-1" x="159.5" y="31.5" width="7" height="7"/></g>
-    <ellipse cx="28" cy="2" rx="58" ry="35" fill="url(#glow)"/><ellipse cx="195" cy="4" rx="59" ry="40" fill="url(#glow)"/>
+
     <g class="snow-drift" style="--phase:-0.00s;--cycle:5.60s" opacity="0.650"><use href="#flake-0" x="5.5" y="9.5" width="15" height="15"/></g><g class="snow-drift" style="--phase:-0.83s;--cycle:6.50s" opacity="0.403"><use href="#flake-1" x="13.0" y="24.0" width="10" height="10"/></g><g class="snow-drift" style="--phase:-1.66s;--cycle:7.40s" opacity="0.616"><use href="#flake-1" x="37.5" y="0.5" width="9" height="9"/></g><g class="snow-drift" style="--phase:-2.49s;--cycle:5.60s" opacity="0.616"><use href="#flake-1" x="172.0" y="0.0" width="8" height="8"/></g><g class="snow-drift" style="--phase:-3.32s;--cycle:6.50s" opacity="0.650"><use href="#flake-0" x="200.5" y="2.5" width="15" height="15"/></g><g class="snow-drift" style="--phase:-4.15s;--cycle:7.40s" opacity="0.381"><use href="#flake-1" x="186.0" y="27.0" width="10" height="10"/></g>
     <path d="M9 0Q40 11 62 1 M91 0Q116 12 143 2T181 1 M176 -1Q199 9 219 1" fill="none" stroke="#bea47a" stroke-width=".65" opacity=".65"/>
 
