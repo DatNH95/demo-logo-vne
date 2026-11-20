@@ -22,7 +22,13 @@
   .edition-menu[hidden] { display: none; }
   .edition-menu { margin-left: auto; }
   .edition-menu button { font-size: 13px; }
+  .zoom-menu { align-items: center; }
+  .zoom-menu button { min-width: 36px; }
+  .zoom-menu button:disabled { opacity: .45; cursor: default; }
+  .zoom-reset { min-width: 70px !important; font-variant-numeric: tabular-nums; }
   main { padding: 18px; }
+  .demo-viewport { overflow: auto; }
+  .demo-viewport[data-magnified] { max-height: 75vh; }
   .preview { position: relative; margin: 0 auto; background: white; border: 1px solid #dedbd7; overflow: hidden; }
   #pc, #pc-do { max-width: 1922px; }
   #mobile, #mobile-do { max-width: 414px; border-inline: 0; }
@@ -63,11 +69,17 @@
       <button type="button" data-edition="ov" aria-pressed="false">OV</button>
       <button type="button" data-edition="do" aria-pressed="true">DO</button>
     </div>
+    <div class="zoom-menu" role="group" aria-label="Thu phóng khung demo">
+      <button type="button" data-zoom="-25" aria-label="Thu nhỏ">−</button>
+      <button type="button" class="zoom-reset" data-zoom="reset" title="Đặt lại mức thu phóng" aria-label="Đặt lại mức thu phóng · 100%">100%</button>
+      <button type="button" data-zoom="25" aria-label="Phóng to">+</button>
+    </div>
   </div>
   <span id="status" role="status"></span>
 </header>
 <main>
   <p class="empty-season" hidden>Chưa có phương án logo cho Tết âm 2027.</p>
+  <div class="demo-viewport" hidden>
   <div class="preview" id="pc" hidden>
     <img class="homepage" src="./asset/vnexpress-homepage-1920x1080.png" width="1920" height="1080" alt="Khung trang chủ VnExpress trên PC">
     <img class="motion-background" style="left:20%;top:0%;width:11.5625%;height:5.648148148148148%" alt="">
@@ -92,6 +104,7 @@
     <img class="homepage" src="./asset/vnexpress-do-mobile.png" width="414" height="1080" alt="Khung trang chủ VnExpress trên Mobile DO">
     <img class="motion-background" style="left:-1.2077294685990339%;top:0%;width:55.55555555555556%;height:4.074074074074074%" alt="">
     <img class="brand-logo" src="./asset/vnexpress-do-logo.svg" style="left:10.869565217391305%;top:0.2777777777777778%;width:31.40096618357488%;height:3.7037037037037033%" alt="VnExpress International">
+  </div>
   </div>
   <section id="sources" aria-label="Nền SVG của các phương án" hidden>
     <article class="source-card" data-source="pc-01">
@@ -128,10 +141,29 @@
   const sources = document.getElementById('sources');
   const season = document.querySelector('.season');
   const emptySeason = document.querySelector('.empty-season');
+  const viewport = document.querySelector('.demo-viewport');
+  const zoomOut = document.querySelector('[data-zoom="-25"]');
+  const zoomIn = document.querySelector('[data-zoom="25"]');
+  const zoomReset = document.querySelector('[data-zoom="reset"]');
   let active;
   let selectedOption = '01';
   let edition = new URLSearchParams(location.search).get('edition') === 'ov' ? 'ov' : 'do';
   let renderSequence = 0;
+  let visibleFrame;
+  let zoom = 100;
+
+  function applyZoom() {
+    const available = viewport.clientWidth;
+    if (!visibleFrame || !available) return;
+    const maxWidth = visibleFrame.id.startsWith('mobile') ? 414 : 1922;
+    visibleFrame.style.width = Math.min(available, maxWidth) + 'px';
+    visibleFrame.style.zoom = zoom / 100;
+    viewport.toggleAttribute('data-magnified', zoom > 100);
+    zoomOut.disabled = zoom <= 50;
+    zoomIn.disabled = zoom >= 200;
+    zoomReset.textContent = zoom + '%';
+    zoomReset.setAttribute('aria-label', 'Đặt lại mức thu phóng · ' + zoom + '%');
+  }
 
   async function selectPreview(id) {
     active = id;
@@ -154,7 +186,10 @@
     emptySeason.hidden = hasDesigns;
     const showInternational = offersEdition && edition === 'ov';
     const frame = hasDesigns && spec ? document.getElementById(spec.layout + (showInternational ? '-do' : '')) : null;
+    visibleFrame = frame;
+    viewport.hidden = !frame;
     for (const preview of document.querySelectorAll('.preview')) preview.hidden = preview !== frame;
+    applyZoom();
     if (!hasDesigns) {
       document.documentElement.dataset.ready = 'tet-am-2027';
       return;
@@ -198,6 +233,12 @@
     edition = button.dataset.edition;
     selectPreview(active);
   });
+  document.querySelectorAll('[data-zoom]').forEach(button => button.addEventListener('click', () => {
+    zoom = button.dataset.zoom === 'reset' ? 100 : Math.min(200, Math.max(50, zoom + Number(button.dataset.zoom)));
+    applyZoom();
+    if (zoom === 100) viewport.scrollTo(0, 0);
+  }));
+  new ResizeObserver(applyZoom).observe(viewport);
   reducedMotion.addEventListener('change', () => selectPreview(active));
   season.addEventListener('change', () => selectPreview(active));
   const requested = new URLSearchParams(location.search).get('view');
