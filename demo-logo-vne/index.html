@@ -35,7 +35,6 @@
   .motion-background, .brand-logo, .sidebar-ad, .account-icon { display: block; position: absolute; }
   #mobile .motion-background { mask-image: linear-gradient(90deg, transparent 10%, #000 14%, #000 90%, transparent 100%); }
   #mobile[data-tet] .motion-background { mask-image: linear-gradient(90deg, transparent 9%, #000 14%, #000 87%, transparent 91%); }
-  .preview[data-tet] .brand-logo { visibility: hidden; }
   #mobile-do .motion-background { mask-image: linear-gradient(90deg, transparent 14%, #000 25%, #000 88%, transparent 100%); }
   .account-icon { color: #757575; }
   #sources { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 16px; max-width: 980px; margin: 0 auto; }
@@ -97,12 +96,12 @@
   </div>
 <div class="preview" id="pc-do" hidden>
     <img class="homepage" src="./asset/vnexpress-do-pc.png" width="1920" height="1080" alt="Khung trang chủ VnExpress trên PC DO">
-    <img class="motion-background" style="left:10.478515625%;top:0.3703703703703704%;width:23.4375%;height:5.648148148148148%" alt="">
+    <img class="motion-background" style="left:10.478515625%;top:0%;width:23.4375%;height:5.648148148148148%" alt="">
     <img class="brand-logo" src="./asset/vnexpress-do-logo.svg" style="left:17.1875%;top:0.9259259259259258%;width:10.01953125%;height:5%" alt="VnExpress International">
   </div>
 <div class="preview" id="mobile-do" hidden>
     <img class="homepage" src="./asset/vnexpress-do-mobile.png" width="414" height="1080" alt="Khung trang chủ VnExpress trên Mobile DO">
-    <img class="motion-background" style="left:-1.2077294685990339%;top:0%;width:55.55555555555556%;height:4.074074074074074%" alt="">
+    <img class="motion-background" style="left:-1.2077294685990339%;top:0%;width:55.55555555555556%;height:2.983539094650206%;transform-origin:top;transform:scaleY(1.3655172413793104)" alt="">
     <img class="brand-logo" src="./asset/vnexpress-do-logo.svg" style="left:10.869565217391305%;top:0.2777777777777778%;width:31.40096618357488%;height:3.7037037037037033%" alt="VnExpress International">
   </div>
   </div>
@@ -129,14 +128,15 @@
     </article>
     <article class="source-card" data-season="tet-am-2027" data-source="tet-01" hidden>
       <h2>Options 1 <span>· 457 × 60 px</span></h2>
-      <img class="source-image" width="457" height="60" alt="Logo Tết âm 2027">
+      <img class="source-image" width="457" height="60" alt="Nền Tết âm 2027">
       <a class="source-download">Tải SVG</a>
     </article>
   </section>
 </main>
 <script>
   const variants = {"pc-01":{"layout":"pc","box":"left:14.0625%;top:0%;width:23.4375%;height:5.648148148148148%","svg":"./asset/vnexpress-noel-pc-01-motion.svg","png":"./asset/vnexpress-noel-pc-01%403x.png","filename":"vnexpress-noel-pc-01-motion.svg"},"pc-02":{"layout":"pc","box":"left:14.0625%;top:0%;width:23.4375%;height:5.648148148148148%","svg":"./asset/vnexpress-noel-pc-02-motion.svg","png":"./asset/vnexpress-noel-pc-02%403x.png","filename":"vnexpress-noel-pc-02-motion.svg"},"mobile-01":{"layout":"mobile","box":"left:0%;top:0%;width:100%;height:5.37037037037037%","svg":"./asset/vnexpress-noel-mobile-01-motion.svg","png":"./asset/vnexpress-noel-mobile-01%403x.png","filename":"vnexpress-noel-mobile-01-motion.svg"},"mobile-02":{"layout":"mobile","box":"left:0%;top:0%;width:100%;height:5.37037037037037%","svg":"./asset/vnexpress-noel-mobile-02-motion.svg","png":"./asset/vnexpress-noel-mobile-02%403x.png","filename":"vnexpress-noel-mobile-02-motion.svg"}};
-  const tet = {"svg":"./asset/vnexpress-tet-01.svg","filename":"vnexpress-tet-01.svg","layouts":{"pc":"left:14.348958333333334%;top:0%;width:23.802083333333332%;height:5.555555555555555%","mobile":"left:1.6411378555798735%;top:0%;width:100%;height:5.032822757111597%"}};
+  const tet = {"svg":"./asset/vnexpress-tet-01.svg","filename":"vnexpress-tet-01.svg","layouts":{"pc":"left:14.348958333333334%;top:0%;width:23.802083333333332%;height:5.555555555555555%","mobile":"left:1.6411378555798735%;top:0%;width:100%;height:5.032822757111597%","pc-do":"left:10.296223958333334%;top:0%;width:23.802083333333332%;height:5.555555555555555%","mobile-do":"left:-1.2077294685990339%;top:0%;width:55.55555555555556%;height:2.7960126428397762%;transform-origin:top;transform:scaleY(1.4571014492753624)"}};
+  const internationalBoxes = {"pc-do":"left:10.478515625%;top:0%;width:23.4375%;height:5.648148148148148%","mobile-do":"left:-1.2077294685990339%;top:0%;width:55.55555555555556%;height:2.983539094650206%;transform-origin:top;transform:scaleY(1.3655172413793104)"};
   const sections = document.querySelectorAll('[data-section]');
   const optionsMenu = document.querySelector('.options-menu');
   const optionButtons = optionsMenu.querySelectorAll('[data-option]');
@@ -179,7 +179,7 @@
     if (spec) selectedOption = id.slice(-2);
     for (const button of sections) button.setAttribute('aria-pressed', button.dataset.section === section);
     optionsMenu.hidden = section === 'sources';
-    const offersEdition = !!spec && !isTet;
+    const offersEdition = !!spec;
     editionMenu.hidden = !offersEdition;
     for (const button of editionButtons) button.setAttribute('aria-pressed', button.dataset.edition === edition);
     for (const button of optionButtons) {
@@ -198,7 +198,7 @@
     if (frame) {
       frame.toggleAttribute('data-tet', isTet);
       const background = frame.querySelector('.motion-background');
-      if (!showInternational) background.style.cssText = isTet ? tet.layouts[spec.layout] : spec.box;
+      background.style.cssText = isTet ? tet.layouts[frame.id] : showInternational ? internationalBoxes[frame.id] : spec.box;
       background.src = isTet ? tet.svg : reducedMotion.matches ? spec.png : spec.svg;
       images = Array.from(frame.querySelectorAll('img'));
     } else {
@@ -218,7 +218,7 @@
     }
     try {
       await Promise.all(images.map(image => image.decode()));
-      if (sequence === renderSequence) document.documentElement.dataset.ready = isTet ? section + '-tet' : showInternational ? id + '-ov' : id;
+      if (sequence === renderSequence) document.documentElement.dataset.ready = (isTet ? section + '-tet' : id) + (showInternational ? '-ov' : '');
     } catch {
       if (sequence === renderSequence) status.textContent = 'Không tải được ảnh xem thử.';
     }
